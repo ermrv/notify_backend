@@ -4,8 +4,13 @@ const morgan = require("morgan");
 const http = require('http');
 
 
+//connect to the database
+const mongodbConnection = require("./3_SystemKernel/Database/connection")
+const database = require("./3_SystemKernel/Database/models")
+
+
 //set up the app
-const app= express();
+const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
