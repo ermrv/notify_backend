@@ -6,7 +6,7 @@ const http = require('http');
 
 //connect to the database
 const mongodbConnection = require("./3_SystemKernel/Database/connection")
-const database = require("./3_SystemKernel/Database/models")
+const database = require("./3_SystemKernel/Database/index")
 
 
 //set up the app
@@ -36,6 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routes
 app.get('/', (req, res) => res.json({ message: "You are on homepage" }))
 
+//create server
+const server = http.createServer(app);
 //connection
 //........................Connections...........................
 const PORT = process.env.PORT || 3000;
