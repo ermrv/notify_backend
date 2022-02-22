@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authanticateUser = require('./../3_SystemKernel/CommonUtils/TokenValidator')
-//...................................................................................................
-//.....A......A......A........A........A.......A........A........A.......A........A......A......A....
+const authanticateUser = require('./../3_SystemKernel/CommonUtils/TokenValidator');
+const fileUploader=require('./../3_SystemKernel/CommonUtils/FileUploader')
+
+
+
+
+
 //A1_login and signup
 const loginController = require('./../2_Modules/A1_LoginOrSignUp');
 router.post('/getOtp', loginController.sendOTP);//mobile
@@ -17,7 +21,7 @@ router.post('/updateProfileDetails', authanticateUser, profileEditController.upd
 //A3_update profile pic
 const profilePicController= require('./../2_Modules/A3_UpdateProfilePic');
 router.post('/getProfilePic',authanticateUser,profilePicController.getProfilePic);
-router.post('/updateProfilePic',authanticateUser,profilePicController.updateProfilePic); //profilePic
+router.post('/updateProfilePic',authanticateUser,fileUploader.userProfilePicUploader, profilePicController.updateProfilePic); //profilePic
 
 //A4_update profile settings
 const settingsController= require('./../2_Modules/A4_UpdateProfileSetting')
@@ -29,24 +33,28 @@ const setDefaultChannelController= require('./../2_Modules/A5_SetDefaultChannel'
 router.post('/setDefaultChannel',authanticateUser,setDefaultChannelController.setDefaultChannel); // channelId
 
 
-//..........................................................................................
-//.............B.............B............B...........B...........B...........B............B...........B
+
+
+
 //B1_create channel (owner)
 const createChannelController= require('./../2_Modules/B1_CreateChannel'); 
-router.post('channel/createChannel',authanticateUser,createChannelController.createChannel);//name, description
+router.post('/channel/createChannel',authanticateUser,createChannelController.createChannel);//name, description
 
 //B2_get channel details
 const getChannelDetailsController=require('./../2_Modules/B2_GetChannelDetails');
-router.post('channel/getChannelDetails',authanticateUser,getChannelDetailsController.getChannleDetails); //channelId
+router.post('/channel/getChannelDetails',authanticateUser,getChannelDetailsController.getChannleDetails); //channelId
 
 //B3_ update channel details (owner)
 const updateChannelDetailsController= require('./../2_Modules/B3_UpdateChannelDetails');
-router.post('channel/updateChannelDetails',authanticateUser,updateChannelDetailsController.updateChannelDetails); // name, description
+router.post('/channel/updateChannelDetails',authanticateUser,updateChannelDetailsController.updateChannelDetails); // name, description
 
-//B4_update channel profile pc (owner)
+//B4_update channel cover pic (owner)
+const updateChannelCoverPicController=require('./../2_Modules/B4_UpdateChannelCoverPic');
+router.post('/channel/updateChannelCoverPic',authanticateUser,fileUploader.channelProfilePicUploader, updateChannelCoverPicController.updateChannelCoverPic); //channelCoverPic
 
 
-//B5_update channel cover pic (owner)
+
+//B5_update channel profile pic (owner)
 
 //B6_ subscribe to channel
 const subscribeToChannelController=require('./../2_Modules/B6_SubscribeToChannel');

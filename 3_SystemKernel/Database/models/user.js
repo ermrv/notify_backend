@@ -12,11 +12,17 @@ var reminderSchema = new Schema({
 })
 var userSchema = new Schema({
     name: String,
-    gender: String,
+    gender:{
+        type:String,
+        enum: ['male', 'female', 'other'],
+    },
     mobile: String,
     email: String,
     bio: String,
-    profilePicPath: String,
+    profilePicPath:{
+        type:String,
+        default:"/user/profilePics/default.png",
+    },
     deviceInfo: [{
         lat: String,
         lan: String,

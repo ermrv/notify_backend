@@ -14,7 +14,19 @@ exports.getProfilePic = async (req, res) => {
 }
 
 
-//update cover pic
+//update profile pic
 exports.updateProfilePic = async (req, res) => {
+    try {
+        const userId=req.userData.userId;
+        const profilePicPath = "/user/profilePics/" + req.file.filename
+        if(profilePicPath){
+          await database.user.updateOne({_id:userId},{profilePicPath:profilePicPath});
+          res.status(200).json(profilePicPath);
+        }else{
+             res.status(500);
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message, });u
+    }
 
 }

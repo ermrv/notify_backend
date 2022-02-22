@@ -14,7 +14,10 @@ var channelSchema = new Schema({
         default:"public"
     },
     description: String,
-    channelCoverPicPath: String,
+    channelCoverPicPath:{
+        type:String,
+        default:"/channel/profilePics/default.png"
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
