@@ -4,14 +4,18 @@ const Schema = mongoose.Schema;
 
 
 var channelSchema = new Schema({
-    name: String,
+    name: {
+        type:String,
+        required:true
+    },
     description: String,
     channelCoverPicPath: String,
     owner: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required:true
     },
-    admin: [{
+    admins: [{
         type: Schema.Types.ObjectId,
         ref: "User"
     }],

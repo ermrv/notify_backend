@@ -12,7 +12,7 @@ var reminderSchema = new Schema({
 })
 var userSchema = new Schema({
     name: String,
-    gender:String,
+    gender: String,
     mobile: String,
     email: String,
     bio: String,
@@ -25,11 +25,16 @@ var userSchema = new Schema({
     }],
     settings: {
 
+
     },
     channels: [{
         type: Schema.Types.ObjectId,
         ref: "Channel"
     }],
+    defaultChannel: {
+        type: Schema.Types.ObjectId,
+        ref: "Channel"
+    },
     subscribedChannels: [{
         type: Schema.Types.ObjectId,
         ref: "Channel"
