@@ -35,9 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
 app.get('/', (req, res) => res.json({ message: "You are on homepage" }))
+app.use('/api',require('./1_Routes/routes'))
 
-//create server
-const server = http.createServer(app);
+// //create server
+// const server = http.createServer(app);
 //connection
 //........................Connections...........................
 const PORT = process.env.PORT || 3000;

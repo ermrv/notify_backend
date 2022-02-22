@@ -14,5 +14,5 @@ var promotionSchema= new Schema({
     expiryDate:Date
 })
 
-var Promotion=new mongoose.model("Promotion", promotionSchema);
+var Promotion= mongoose.model("Promotion", promotionSchema);
 module.exports=Promotion;

@@ -13,3 +13,6 @@ var notificationSchema = new Schema({
     notificationString:String,
 
 }, { timeStamps: true })
+
+var Notification=mongoose.model('Notification',notificationSchema);
+module.exports=Notification;

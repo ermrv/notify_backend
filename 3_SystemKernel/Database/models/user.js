@@ -12,6 +12,7 @@ var reminderSchema = new Schema({
 })
 var userSchema = new Schema({
     name: String,
+    gender:String,
     mobile: String,
     email: String,
     bio: String,
@@ -35,22 +36,7 @@ var userSchema = new Schema({
     }],
     reminders: [reminderSchema]
 
-},{ timestamps: true });
-
-//create new user
-userSchema.statics.createNewUser = async function () {
-
-};
-
-//update user data
-userSchema.statics.updateUserData = async function () {
-
-};
-
-//get user data
-userSchema.statics.getUserData = async function () {
-
-};
+}, { timestamps: true });
 
 var User = mongoose.model('User', userSchema)
 module.exports = User;
