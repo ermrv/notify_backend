@@ -8,6 +8,11 @@ var channelSchema = new Schema({
         type:String,
         required:true
     },
+    channelPrivacy:{
+        type:String,
+        enum:["private", "public"],
+        default:"public"
+    },
     description: String,
     channelCoverPicPath: String,
     owner: {
@@ -34,6 +39,13 @@ var channelSchema = new Schema({
 
 
 }, { timestamps: true });
+
+
+//get channel owner
+channelSchema.statics.getChannelOwner=async function(channelId){
+   const channelOwnerId= await this.findOne({ _id: channelId }).select("owner");
+   return channelOwnerId.owner.toString();
+}
 
 var Channel = mongoose.model('Channel', channelSchema);
 module.exports = Channel;
