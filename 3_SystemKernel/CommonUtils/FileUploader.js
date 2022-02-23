@@ -67,6 +67,5 @@ const postAttachmentsStorage=multer.diskStorage({
     }
 });
 module.exports.postAttachmentsUploader = multer({
-    storage: channelProfilePicStorage,
-    fileFilter: channelProfilePicFilter
-}).array('attachment')
+    storage: postAttachmentsStorage,
+}).array('attachment',20)

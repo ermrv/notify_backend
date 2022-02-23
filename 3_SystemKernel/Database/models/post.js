@@ -2,30 +2,36 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const postContentSchema = new Schema({
-    description: String,
-    postBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    },
-    attachments: [{
-        type: String,
-    }]
-}, { timeStamps: true })
+
 
 const postSchema = new Schema({
-    promoted: String,
-    shared: String,
+    promoted: {
+        type: String,
+        require: true,
+        default: "false",
+    },
+    shared: {
+        type: String,
+        require: true,
+        default: "false",
+    },
     shareDetails: {
-        sharedBy: {
+        originalPostId: String,
+        description: String,
+        sharingChannel: {
+            type: Schema.Types.ObjectId,
+            ref: "Channel"
+        },
+        sharingUser: {
             type: Schema.Types.ObjectId,
             ref: "User"
         },
-        sharedDescription: String,
+
     },
     postContent: {
-        type: postContentSchema,
-        default: {}
+        type: Schema.Types.ObjectId,
+        require: true,
+        ref: "PostContent"
 
     },
     likes: [{
@@ -37,7 +43,7 @@ const postSchema = new Schema({
         ref: "User"
     }]
 
-}, { timeStamps: true });
+}, { timestamps: true });
 
-var Post= mongoose.model('Post', postSchema)
-module.exports=Post;
+var Post = mongoose.model('Post', postSchema)
+module.exports = Post;

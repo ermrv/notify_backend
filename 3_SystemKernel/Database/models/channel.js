@@ -50,5 +50,11 @@ channelSchema.statics.getChannelOwner=async function(channelId){
    return channelOwnerId.owner.toString();
 }
 
+//get channel admins
+channelSchema.statics.getChannelAdmins= async function (channelId){
+    const channelAdminsId= await this.findOne({_id:channelId}).select("admins");
+    return channelAdminsId;
+}
+
 var Channel = mongoose.model('Channel', channelSchema);
 module.exports = Channel;
