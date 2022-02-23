@@ -83,7 +83,8 @@ const addPostController = require('./../2_Modules/C1_AddPost');
 router.post("/post/addPost", authanticateUser, fileUploader.postAttachmentsUploader, addPostController.addPost); //channelId, description, attachments
 
 //C2_Updade post description
-
+const updatePostDescriptionController= require('./../2_Modules/C2_UpdatePostDescription');
+router.post("/post/updateDescription", authanticateUser,updatePostDescriptionController.updatePostDescription);//postId, description
 //C3_Update post prvacy
 
 //C4_React to post

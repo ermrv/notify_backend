@@ -15,24 +15,24 @@ const postSchema = new Schema({
         require: true,
         default: "false",
     },
+    postingChannel: {
+        type: Schema.Types.ObjectId,
+        ref: "Channel",
+        require:true
+    },
+    postingUser: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        require:true
+    },
     shareDetails: {
         originalPostId: String,
         description: String,
-        sharingChannel: {
-            type: Schema.Types.ObjectId,
-            ref: "Channel"
-        },
-        sharingUser: {
-            type: Schema.Types.ObjectId,
-            ref: "User"
-        },
-
     },
     postContent: {
         type: Schema.Types.ObjectId,
         require: true,
         ref: "PostContent"
-
     },
     likes: [{
         type: Schema.Types.ObjectId,

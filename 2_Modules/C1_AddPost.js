@@ -20,7 +20,7 @@ exports.addPost = async (req, res) => {
 
                 const postContent = await database.postContent.create({ description: description, attachments: attachments, postingChannel: channelId, postingUser: userId });
 
-                const postData = await database.post.create({ postContent: postContent._id });
+                const postData = await database.post.create({ postContent: postContent._id, postingChannel: postContent.postingChannel, postingUser: postContent.postingUser });
                 await database.channel.updateOne({ _id: channelId }, { $addToSet: { posts: postData._id } })
                 res.status(200).json(postData);
             } else {
