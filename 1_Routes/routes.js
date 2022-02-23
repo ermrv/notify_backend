@@ -83,28 +83,59 @@ const addPostController = require('./../2_Modules/C1_AddPost');
 router.post("/post/addPost", authanticateUser, fileUploader.postAttachmentsUploader, addPostController.addPost); //channelId, description, attachments
 
 //C2_Updade post description
-const updatePostDescriptionController= require('./../2_Modules/C2_UpdatePostDescription');
-router.post("/post/updateDescription", authanticateUser,updatePostDescriptionController.updatePostDescription);//postId, description
+const updatePostDescriptionController = require('./../2_Modules/C2_UpdatePostDescription');
+router.post("/post/updateDescription", authanticateUser, updatePostDescriptionController.updatePostDescription);//postId, description
 
 //C3_Update post prvacy
-const updatePostPrivacyController= require('./../2_Modules/C3_UpdatePostPrivacy');
-router.post("/post/updatePostPrivacy",authanticateUser,updatePostPrivacyController.updatePostPrivacy); //postId, allowCommenting, allowSharing
+const updatePostPrivacyController = require('./../2_Modules/C3_UpdatePostPrivacy');
+router.post("/post/updatePostPrivacy", authanticateUser, updatePostPrivacyController.updatePostPrivacy); //postId, allowCommenting, allowSharing
 
 //C4_React to post
-const reactToPostController= require('./../2_Modules/C4_ReactToPost');
-router.post("/post/react", authanticateUser,reactToPostController.reactToPost);//postId, liked("true"/"false")
+const reactToPostController = require('./../2_Modules/C4_ReactToPost');
+router.post("/post/react", authanticateUser, reactToPostController.reactToPost);//postId, liked("true"/"false")
 
 //C5_share post
-const sharePostController= require('./../2_Modules/C5_SharePost');
-router.post("/post/sharePost",authanticateUser,sharePostController.sharePost); //postId, channelId, description
+const sharePostController = require('./../2_Modules/C5_SharePost');
+router.post("/post/sharePost", authanticateUser, sharePostController.sharePost); //postId, channelId, description
 //C6_Delete post
-const deletePostController= require('./../2_Modules/C6_DeletePost');
-router.post("/post/deletePost",authanticateUser,deletePostController.deletePost);//postId
+const deletePostController = require('./../2_Modules/C6_DeletePost');
+router.post("/post/deletePost", authanticateUser, deletePostController.deletePost);//postId
 //C7_Report post
-const reportPostController= require('./../2_Modules/C7_ReportPost');
-router.post("/post/reportpost",authanticateUser,reportPostController.reportPost); //postId, description
+const reportPostController = require('./../2_Modules/C7_ReportPost');
+router.post("/post/reportpost", authanticateUser, reportPostController.reportPost); //postId, description
 
 //C8_get post details
-const getPostDetailsController= require('./../2_Modules/C8_GetPostDetails');
+const getPostDetailsController = require('./../2_Modules/C8_GetPostDetails');
 router.post('/post/postDetail', authanticateUser, getPostDetailsController.postDetails); //postId
+
+
+//D1_add comment
+const addCommentController = require("./../2_Modules/D1_AddComment");
+router.post('/comment/addComment', authanticateUser, addCommentController.addComment); //postId, comment
+//D2_update comment
+const updateCommentController = require('./../2_Modules/D2_UpdateComment');
+router.post('/comment/updateComment', authanticateUser, updateCommentController.updateComment);//commentId, comment
+//D3_delete comment
+const deleteCommentController = require('./../2_Modules/D3_DeleteComment');
+router.post('/comment/deleteComment', authanticateUser, deleteCommentController.deleteComment);//commentId postId
+//D4_add subcomment
+const addSubCommentController = require('./../2_Modules/D4_AddSubComment');
+router.post('/comment/addSubComment', authanticateUser, addSubCommentController.addSubComment);//commentId, comment
+//D5_update subcomment
+const updateSubCommentController= require('./../2_Modules/D5_UpdateSubComment');
+router.post('/comment/updateSubComment',authanticateUser, updateSubCommentController.updateSubComment); //commentId, subCommentId, comment
+//D6_delete subcomment
+const deleteSubCommentController= require('./../2_Modules/D6_DeleteSubComment');
+router.post('/comment/deleteSubComment', authanticateUser, deleteSubCommentController.deleteSubComment); //commentId, subCommentId
+//D7_react to comment
+const reactToCommentController = require('./../2_Modules/D7_ReactToComment');
+router.post('/comment/reactToComment',authanticateUser, reactToCommentController.reactToComment);//commentId, liked
+//D8_react to subcomment
+const reactToSubCommentController= require('./../2_Modules/D8_ReactToSubComment');
+router.post('/comment/reactToSubComment', authanticateUser, reactToSubCommentController.reactToSubComment); //commentId, subCommentId, liked
+
+
+
+
+
 module.exports = router;

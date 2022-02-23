@@ -33,7 +33,7 @@ var commentSchema = new Schema({
         type: String,
         required: true,
     },
-    post: {
+    postId: {
         type: Schema.Types.ObjectId,
         ref: 'Post',
         required: true,
