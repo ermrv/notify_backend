@@ -18,16 +18,32 @@ const postSchema = new Schema({
     postingChannel: {
         type: Schema.Types.ObjectId,
         ref: "Channel",
-        require:true
+        require: true
     },
     postingUser: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        require:true
+        require: true
     },
-    shareDetails: {
-        originalPostId: String,
-        description: String,
+    sharedDetails: {
+        originalPostId: {
+            type: Schema.Types.ObjectId,
+            ref: "Post"
+        },
+        sharedDescription: String,
+    },
+
+
+
+    allowCommenting: {
+        type: String,
+        enum: ["true", "false"],
+        default: "true",
+    },
+    allowSharing: {
+        type: String,
+        enum: ["true", "false"],
+        default: "true",
     },
     postContent: {
         type: Schema.Types.ObjectId,
@@ -41,9 +57,34 @@ const postSchema = new Schema({
     comments: [{
         type: Schema.Types.ObjectId,
         ref: "User"
+    }],
+    reported: [{
+
+        type: Schema.Types.ObjectId,
+        ref: "ReportedPost"
+
     }]
 
-}, { timestamps: true });
+}, {
+    timestamps: true, toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
+});
+
+postSchema.virtual('commentsCount').get(function () {
+    return this.comments.length
+});
+
+postSchema.virtual('likesCount').get(function () {
+    return this.likes.length
+});
+
+
+
+
 
 var Post = mongoose.model('Post', postSchema)
 module.exports = Post;

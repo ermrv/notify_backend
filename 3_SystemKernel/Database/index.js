@@ -6,5 +6,6 @@ module.exports = {
     comment:require("./models/comment"),
     notification:require("./models/notification"),
     promotion:require("./models/promotion"),
+    reportedPost:require('./models/reportedPost'),
 
 }
