@@ -15,7 +15,9 @@ router.post('/updateReminder', authanticateUser, updateReminderController.update
 const deleteReminderController= require('./../2_Modules/E3_DeleteReminder');
 router.post('/deleteReminder',authanticateUser, deleteReminderController.deleteReminder); //reminderId
 
-
+//E4_get all reminders
+const getAllRemindersController= require('./../2_Modules/E4_GetAllReminders');
+router.post('/getAllReminders', authanticateUser, getAllRemindersController.getAllReminders); 
 
 
 module.exports = router;
