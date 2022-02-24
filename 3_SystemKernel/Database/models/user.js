@@ -3,11 +3,15 @@ const Schema = mongoose.Schema;
 
 
 var reminderSchema = new Schema({
-    time: Date,
+    time:{
+        type:Date,
+        required:true,
+    },
     description: String,
     postId: {
         type: Schema.Types.ObjectId,
-        ref: "Post"
+        ref: "Post",
+        required:true
     }
 })
 var userSchema = new Schema({
