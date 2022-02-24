@@ -7,7 +7,9 @@ exports.addComment =async (req, res) =>{
         const { postId , comment} = req.body;
         if (comment && postId) {
 
-            commentData = await database.comment.create({comment:comment, postId:postId, commentBy:userId});
+            commentData = await database.comment.create({comment:comment, postId:postId, commentBy:userId})
+            .populate('commentBy', 'name _id profilePicPath')
+            .populate('subComments.commentBy', 'name _id profilePicPath');
 
             await database.post.updateOne({ _id: postId }, { $addToSet: { comments: commentData._id } });
             res.status(200).json(commentData);

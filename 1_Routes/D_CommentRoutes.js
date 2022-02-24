@@ -27,6 +27,9 @@ router.post('/reactToComment',authanticateUser, reactToCommentController.reactTo
 //D8_react to subcomment
 const reactToSubCommentController= require('../2_Modules/D8_ReactToSubComment');
 router.post('/reactToSubComment', authanticateUser, reactToSubCommentController.reactToSubComment); //commentId, subCommentId, liked
+//D9_get all post comments
+const getAllPostCommentsController= require("./../2_Modules/D9_GetAllPostComments");
+router.post('/getPostComments', authanticateUser, getAllPostCommentsController.allPostComments); //postId
 
 
 

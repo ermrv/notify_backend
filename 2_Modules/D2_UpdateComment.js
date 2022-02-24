@@ -5,14 +5,10 @@ exports.updateComment = async (req, res) => {
         const userId = req.userData.userId;
         const { commentId, comment } = req.body;
         if (comment && commentId) {
-            const commentData = await database.comment.findOne({ _id: commentId });
-            if (commentData.commentBy == userId) {
-                commentData.comment = comment;
-                commentData.save();
+            const commentData = await database.comment.findOneAndUpdate({ _id: commentId, commentBy: userId }, { $set: { comment: comment } }, { "new": true })
+                .populate('commentBy', 'name _id profilePicPath')
+                .populate('subComments.commentBy', 'name _id profilePicPath');
                 res.status(200).json(commentData);
-            } else {
-                return res.status(401).json({ "error": "not authorised"})
-            }
         } else {
             return res.status(500).json({ "error": "add required field" });
         }

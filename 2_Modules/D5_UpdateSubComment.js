@@ -10,7 +10,9 @@ exports.updateSubComment = async (req, res) => {
                 'subComments._id': subCommentId,
                 'subComments.commentBy': userId },{
                     'subComments.$.comment':comment
-                }, {"new":true});
+                }, {"new":true})
+                .populate('commentBy', 'name _id profilePicPath')
+                .populate('subComments.commentBy', 'name _id profilePicPath');
             res.status(200).json(commentData);
         } else {
             return res.status(500).json({ "error": "add required field" });
