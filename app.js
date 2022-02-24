@@ -40,6 +40,7 @@ app.use('/api/channel',require('./1_Routes/B_ChannelRoutes'))
 app.use('/api/post',require('./1_Routes/C_PostRoutes'))
 app.use('/api/comment',require('./1_Routes/D_CommentRoutes'))
 app.use('/api/reminder', require('./1_Routes/E_ReminderRoutes'))
+app.use('/api/user', require('./1_Routes/F_UserRoutes'))
 
 
 // //create server
