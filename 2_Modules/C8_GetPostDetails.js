@@ -29,6 +29,7 @@ exports.postDetails = async (req, res) => {
             return res.status(500).json({ "error": "channelId is required" });
         }
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ error: error.message, });
     }
 }

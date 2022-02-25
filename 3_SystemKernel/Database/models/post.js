@@ -66,16 +66,22 @@ const postSchema = new Schema({
     }]
 
 }, {
-    timestamps: true, 
+    timestamps: true,
+     toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
 });
 
-// postSchema.virtual('commentsCount').get(function () {
-//     return this.comments.length
-// });
+postSchema.virtual('commentsCount').get(function () {
+    return this.comments.length
+});
 
-// postSchema.virtual('likesCount').get(function () {
-//     return this.likes.length
-// });
+postSchema.virtual('likesCount').get(function () {
+    return this.likes.length
+});
 
 
 

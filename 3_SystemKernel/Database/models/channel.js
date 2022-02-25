@@ -47,21 +47,15 @@ var channelSchema = new Schema({
 
 }, {
     timestamps: true,
-     toObject: {
-        virtuals: true
-    },
-    toJSON: {
-        virtuals: true
-    }
 });
 
-channelSchema.virtual('subscribersCount').get(function(){
-    return this.subscribers.length;
-});
+// channelSchema.virtual('subscribersCount').get(function(){
+//     return this.subscribers.length;
+// });
 
-channelSchema.virtual('postsCount').get(function(){
-    return this.posts.length;
-})
+// channelSchema.virtual('postsCount').get(function(){
+//     return this.posts.length;
+// })
 
 
 //get channel owner
