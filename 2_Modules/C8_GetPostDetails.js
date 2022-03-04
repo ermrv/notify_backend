@@ -7,7 +7,9 @@ exports.postDetails = async (req, res) => {
         const { postId } = req.body;
 
         if (postId) {
-            const postData = await database.post.findOne({ _id: postId }).populate({
+         postData = await database.post.findOne({ _id: postId })
+            .select('_id promoted shared postingChannel postingUser allowCommenting allowSharing postContent likes comments createdAt updatedAt')
+            .populate({
                 path: "postingChannel",
                 select: "name channelPrivacy channelCoverPicPath"
             })
@@ -22,8 +24,12 @@ exports.postDetails = async (req, res) => {
                     },
 
                 });
-
-            res.status(200).json(postData);
+            var responseData= postData.toJSON();
+            responseData.commentsCount=postData.comments.length;
+            responseData.likesCount=postData.likes.length;
+            delete responseData.comments;
+            delete responseData.likes;
+            res.status(200).json(responseData);
 
         } else {
             return res.status(500).json({ "error": "channelId is required" });
