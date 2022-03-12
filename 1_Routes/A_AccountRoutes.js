@@ -25,8 +25,12 @@ const settingsController = require('../2_Modules/A4_UpdateProfileSetting')
 router.post('/getProfileSettings', authanticateUser, settingsController.getSettingsData);
 router.post('/updateProfileSettings', authanticateUser, settingsController.updateSettings);//settings map
 
-//A5_Srt default channel
+//A5_Set default channel
 const setDefaultChannelController = require('../2_Modules/A5_SetDefaultChannel')
 router.post('/setDefaultChannel', authanticateUser, setDefaultChannelController.setDefaultChannel); // channelId
+
+//A6_get all channels
+const getAllChannelsController= require("../2_Modules/A6_GetAllChannels")
+router.post('/getAllChannels',authanticateUser,getAllChannelsController.getAllChannels);
 
 module.exports = router;

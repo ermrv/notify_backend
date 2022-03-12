@@ -1,3 +1,4 @@
+const { path } = require('express/lib/application');
 const database = require('../3_SystemKernel/Database')
 
 
@@ -6,7 +7,10 @@ const database = require('../3_SystemKernel/Database')
 exports.getProfileDetails = async (req, res) => {
     try {
         const userId = req.userData.userId;
-        profileData = await database.user.findOne({ _id: userId }).lean();
+        profileData = await database.user.findOne({ _id: userId }).
+            select('_id name gender bio defaultChannel channels subscribedChannels')
+            .populate({ path: 'channels', select: '_id name channelCoverPicPath' })
+            .populate({ path: 'defaultChannel', select: '_id name channelCoverPicPath'});
         res.status(200).json(profileData);
     } catch (error) {
         return res.status(500).json({ error: error.message, });

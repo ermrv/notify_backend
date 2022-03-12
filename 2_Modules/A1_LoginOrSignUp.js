@@ -134,7 +134,9 @@ exports.verifyOTP = async (req, res) => {
 exports.registerNewUser = async (req, res) => {
 
   try {
-    const { name, gender, mobile } = req.body;
+    console.log(req.body);
+    const mobile= req.userData.mobile;
+    const { name, gender} = req.body;
     userdata = await database.user.findOne({ mobile: mobile })
     if (!userdata.name) {
       updatedUser = await database.user.findOneAndUpdate({ _id:req.userData.userId }, { name: name, gender: gender }, { 'new': true });
