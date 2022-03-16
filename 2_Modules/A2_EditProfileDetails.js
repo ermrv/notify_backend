@@ -8,7 +8,7 @@ exports.getProfileDetails = async (req, res) => {
     try {
         const userId = req.userData.userId;
         profileData = await database.user.findOne({ _id: userId }).
-            select('_id name gender bio defaultChannel channels subscribedChannels')
+            select('_id name gender bio defaultChannel channels subscribedChannels profilePicPath')
             .populate({ path: 'channels', select: '_id name channelCoverPicPath' })
             .populate({ path: 'defaultChannel', select: '_id name channelCoverPicPath'});
         res.status(200).json(profileData);

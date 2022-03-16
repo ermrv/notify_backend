@@ -30,7 +30,9 @@ router.post('/reactToSubComment', authanticateUser, reactToSubCommentController.
 //D9_get all post comments
 const getAllPostCommentsController= require("./../2_Modules/D9_GetAllPostComments");
 router.post('/getPostComments', authanticateUser, getAllPostCommentsController.allPostComments); //postId
-
+//D10_get all subcomments
+const getSubCommentsController=require('./../2_Modules/D10_GetAllSubComments');
+router.post('/getSubComments',authanticateUser,getSubCommentsController.allSubComments); //commentId
 
 
 module.exports = router;

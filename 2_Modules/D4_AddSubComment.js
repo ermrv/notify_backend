@@ -1,3 +1,4 @@
+const { response } = require('express');
 const database = require('./../3_SystemKernel/Database/index')
 
 
@@ -7,11 +8,12 @@ exports.addSubComment = async (req, res) => {
         const { commentId, comment } = req.body;
         if (comment && commentId) {
 
-            const commentData = await database.comment.findOneAndUpdate({ _id: commentId }, 
+            const subComments = await database.comment.findOneAndUpdate({ _id: commentId },
                 { $addToSet: { subComments: { comment: comment, commentBy: userId } } }, { "new": true })
-                .populate('commentBy', 'name _id profilePicPath')
-                .populate('subComments.commentBy', 'name _id profilePicPath');
-            res.status(200).json(commentData);
+                .select("subComments")
+                .populate({ path: "subComments.commentBy", select: 'name _id profilePicPath' })
+            responseData = subComments.subComments.find(o=>o.comment===comment);
+            res.status(200).json(responseData);
         } else {
             return res.status(500).json({ "error": "add required field" });
         }

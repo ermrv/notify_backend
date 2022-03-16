@@ -26,9 +26,7 @@ exports.postDetails = async (req, res) => {
                 });
             var responseData= postData.toJSON();
             responseData.commentsCount=postData.comments.length;
-            responseData.likesCount=postData.likes.length;
             delete responseData.comments;
-            delete responseData.likes;
             res.status(200).json(responseData);
 
         } else {
