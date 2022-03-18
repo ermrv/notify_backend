@@ -8,7 +8,7 @@ exports.postDetails = async (req, res) => {
 
         if (postId) {
          postData = await database.post.findOne({ _id: postId })
-            .select('_id promoted shared postingChannel postingUser allowCommenting allowSharing postContent likes comments createdAt updatedAt')
+            .select('_id promoted shared postingChannel postingUser sharedDetails allowCommenting allowSharing postContent likes comments createdAt updatedAt')
             .populate({
                 path: "postingChannel",
                 select: "name channelPrivacy channelCoverPicPath"

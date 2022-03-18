@@ -41,5 +41,7 @@ router.post("/deleteChannel", authanticateUser, deleteChannelController.deleteCh
 
 //B10_set channel admins
 
-
+//B11 get channel posts
+const getChannelPostsController= require('../2_Modules/B11_GetChannelPosts');
+router.post("/getChannelPosts", authanticateUser,getChannelPostsController.getChannelPosts);//channelId
 module.exports = router;

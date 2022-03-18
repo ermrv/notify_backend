@@ -49,6 +49,10 @@ var userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Channel"
     }],
+    newsFeedPosts:[{
+        type: Schema.Types.ObjectId,
+        ref: "Post"
+    }],
     reminders: [reminderSchema]
 
 }, { timestamps: true });

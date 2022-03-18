@@ -33,4 +33,7 @@ router.post('/setDefaultChannel', authanticateUser, setDefaultChannelController.
 const getAllChannelsController= require("../2_Modules/A6_GetAllChannels")
 router.post('/getAllChannels',authanticateUser,getAllChannelsController.getAllChannels);
 
+//A7_get news feed posts
+const getNewsFeedPostsController=require('../2_Modules/A7_GetNewsFeedPosts');
+router.post('/getNewsfeedPosts',authanticateUser,getNewsFeedPostsController.getNewsFeedPosts);
 module.exports = router;
