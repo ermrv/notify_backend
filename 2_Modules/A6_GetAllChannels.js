@@ -4,14 +4,13 @@ const database = require('./../3_SystemKernel/Database/index')
 exports.getAllChannels = async (req, res) => {
     try {
         const userId = req.userData.userId;
-        channelData = await database.user.findOne({ _id: userId }).select('channels').populate({ path: 'channels', select: '_id name subscribers posts channelCoverPicPath' });
+        channelData = await database.user.findOne({ _id: userId }).select('channels').populate({ path: 'channels', select: 'name owner channelCoverPicPath subscribers notifications description posts' });
         var response = channelData.toJSON();
         var responseData=[];
         for (let channel of response.channels) {
             channel.subscribersCount = channel.subscribers.length;
             channel.postsCount=channel.posts.length;
             delete channel.posts;
-            delete channel.subscribers;
             responseData.push(channel);
         }
 

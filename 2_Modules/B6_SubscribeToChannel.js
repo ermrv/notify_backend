@@ -11,7 +11,7 @@ exports.subscribeToChannel = async (req, res) => {
 
             res.status(200).json({ "subscribed": "true" });
         } else {
-            await database.channel.updateOne({ _id: channelId }, { $pull: { subscribers: userId } });
+            await database.channel.updateOne({ _id: channelId }, { $pull: { subscribers: userId,notifications: userId } });
             await database.user.updateOne({ _id: userId }, { $pull: { subscribedChannels: channelId } })
 
             res.status(200).json({ "subscribed": "false" });
