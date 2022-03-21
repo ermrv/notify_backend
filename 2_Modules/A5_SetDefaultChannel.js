@@ -7,10 +7,10 @@ exports.setDefaultChannel = async (req, res) => {
         const userId = req.userData.userId;
         const channelOwnerId = await database.channel.getChannelOwner(channelId);
         if (userId === channelOwnerId) {
-            userData = await database.user.findOneAndUpdate({ _id: userId }, { defaultChannel: channelId }, { "new": true });
-            res.status(200).json(userData);
+            userData = await database.user.updateOne({ _id: userId }, { defaultChannel: channelId });
+            res.status(200).json({"updated":true});
         } else {
-            res.status(500).json({ "error": "you are not authorised to do this action" });
+            res.status(500).json({ "error": "you are not authorised to do this action","updated":false });
         }
 
 

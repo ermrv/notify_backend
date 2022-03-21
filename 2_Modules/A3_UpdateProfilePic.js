@@ -20,7 +20,7 @@ exports.updateProfilePic = async (req, res) => {
         const userId=req.userData.userId;
         const profilePicPath = "/user/profilePics/" + req.file.filename
         if(profilePicPath){
-          await database.user.updateOne({_id:userId},{profilePicPath:profilePicPath});
+          await database.user.updateOne({_id:userId},{profilePicPath:profilePicPath}).select('profilePicPath');
           res.status(200).json(profilePicPath);
         }else{
              res.status(500);

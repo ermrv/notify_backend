@@ -4,7 +4,8 @@ const database = require('./../3_SystemKernel/Database/index')
 exports.getChannleDetails = async (req, res) => {
     try {
         const { channelId } = req.body;
-        channelData = await database.channel.findOne({ _id: channelId }).select('name owner channelCoverPicPath subscribers notifications description posts').lean();
+        channelData = await database.channel.findOne({ _id: channelId })
+        .select('name owner channelCoverPicPath subscribers notifications description posts').lean();
         channelData.subscribersCount = channelData.subscribers.length;
         channelData.postsCount=channelData.posts.length;
             delete channelData.posts;
