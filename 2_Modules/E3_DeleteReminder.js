@@ -6,9 +6,9 @@ exports.deleteReminder = async (req, res) => {
         const { reminderId } = req.body;
         if (reminderId) {
             remindersData = await database.user.findOneAndUpdate({ _id: userId }, { $pull: { reminders: { _id: reminderId } } },{"new":true}).select('reminders')
-            res.status(200).json(remindersData);
+            res.status(200).json(remindersData.reminders);
         }else{
-            res.status(401).json({"erorr":"add required field"})
+            res.status(500).json({"erorr":"add required field"})
         }
     } catch (error) {
         return res.status(500).json({ error: error.message, });
