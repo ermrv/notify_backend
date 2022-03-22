@@ -8,7 +8,7 @@ exports.getProfileDetails = async (req, res) => {
     try {
         const userId = req.userData.userId;
         profileData = await database.user.findOne({ _id: userId }).
-            select('_id name gender bio defaultChannel channels subscribedChannels profilePicPath')
+            select('_id name gender bio defaultChannel channels subscribedChannels profilePicPath reminders')
             .populate({ path: 'channels', select: 'name owner channelCoverPicPath subscribers notifications description posts' })
             .populate({ path: 'defaultChannel', select: 'name owner channelCoverPicPath subscribers notifications description posts' });
         var response = profileData.toJSON();
@@ -34,7 +34,7 @@ exports.updateProfileDetails = async (req, res) => {
         const { name, gender, bio, email } = req.body;
         //system kernel
         updatedProfileData = await database.user.findOneAndUpdate({ _id: userId }, { name: name, bio: bio, gender: gender, email: email }, { "new": true })
-            .select('_id name gender bio defaultChannel channels subscribedChannels profilePicPath')
+            .select('_id name gender bio defaultChannel channels subscribedChannels profilePicPath reminders')
             .populate({ path: 'channels', select: '_id name channelCoverPicPath' })
             .populate({ path: 'defaultChannel', select: '_id name channelCoverPicPath' });
         //response
