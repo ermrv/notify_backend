@@ -5,13 +5,14 @@ exports.updateChannelDetails = async (req, res) => {
     try {
         const { channelId, name, description } = req.body;
         const userId = req.userData.userId;
-        const channelOwnerId = await database.channel.getChannelOwner(channelId);
-        if (userId === channelOwnerId) {
-            channelData = await database.channel.findOneAndUpdate({ _id: channelId }, { name: name, description: description }, { "new": true });
-            res.status(200).json(channelData);
-        } else {
-            res.status(500).json({ "error": "you are not authorised to do this action" });
-        }
+
+        channelData = await database.channel.findOneAndUpdate({ _id: channelId, owner: userId }, { name: name, description: description }, { "new": true })
+            .select('name owner channelCoverPicPath subscribers notifications description posts').lean();
+        channelData.subscribersCount = channelData.subscribers.length;
+        channelData.postsCount = channelData.posts.length;
+        delete channelData.posts;
+        res.status(200).json(channelData);
+
 
 
 
