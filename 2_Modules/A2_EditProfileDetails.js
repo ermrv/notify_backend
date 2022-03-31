@@ -33,12 +33,10 @@ exports.updateProfileDetails = async (req, res) => {
         const userId = req.userData.userId;
         const { name, gender, bio, email } = req.body;
         //system kernel
-        updatedProfileData = await database.user.findOneAndUpdate({ _id: userId }, { name: name, bio: bio, gender: gender, email: email }, { "new": true })
-            .select('_id name gender bio defaultChannel channels subscribedChannels profilePicPath reminders')
-            .populate({ path: 'channels', select: '_id name channelCoverPicPath' })
-            .populate({ path: 'defaultChannel', select: '_id name channelCoverPicPath' });
+        updatedProfileData = await database.user.updateOne({ _id: userId }, { name: name, bio: bio, gender: gender, email: email })
+            
         //response
-        res.status(200).json(updatedProfileData);
+        res.status(200).json({});
     } catch (error) {
         return res.status(500).json({ error: error.message, });
     }

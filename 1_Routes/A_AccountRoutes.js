@@ -36,4 +36,8 @@ router.post('/getAllChannels',authanticateUser,getAllChannelsController.getAllCh
 //A7_get news feed posts
 const getNewsFeedPostsController=require('../2_Modules/A7_GetNewsFeedPosts');
 router.post('/getNewsfeedPosts',authanticateUser,getNewsFeedPostsController.getNewsFeedPosts);
+
+//A8_ get subscribed channels
+const getSubscribedChannelsController=require('../2_Modules/A8_GetSubscribedChannels');
+router.post('/getSubscribedChannels',authanticateUser,getSubscribedChannelsController.getSubscribedChannels);
 module.exports = router;
