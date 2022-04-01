@@ -6,8 +6,8 @@ exports.sharePost = async (req, res) => {
         const userId = req.userData.userId;
         const { postId, channelId, sharedDescription } = req.body;
         if (channelId && postId) {
-            const postData = await database.post.findOne({ _id: postId });
-            if (postData.allowSharing == "true") {
+            const originalPostData = await database.post.findOne({ _id: postId }).lean();
+            if (originalPostData.allowSharing == "true") {
                const postData= await database.post.create({
                     shared: "true",
                     postingChannel: channelId,
@@ -16,8 +16,8 @@ exports.sharePost = async (req, res) => {
                         originalPostId:postId,
                         sharedDescription: sharedDescription,
                     },
-                    allowCommenting: postData.allowCommenting,
-                    postContent:postData.postContent._id,
+                    allowCommenting: originalPostData.allowCommenting,
+                    postContent:originalPostData.postContent._id,
                 });
                 //update channel
                 const channelData = await database.channel.updateOne({ _id: channelId }, { $addToSet: { posts: postData._id } })

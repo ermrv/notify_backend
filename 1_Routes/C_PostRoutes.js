@@ -6,7 +6,7 @@ const fileUploader = require('../3_SystemKernel/CommonUtils/FileUploader')
 //C1_add post
 const addPostController = require('../2_Modules/C1_AddPost');
 router.post("/addPost", authanticateUser, fileUploader.postAttachmentsUploader, addPostController.addPost); //channelId, description, attachments
-
+router.post('/addTextOnlyPost',authanticateUser,addPostController.addTextOnlyPost); //channelId,description
 //C2_Updade post description
 const updatePostDescriptionController = require('../2_Modules/C2_UpdatePostDescription');
 router.post("/updateDescription", authanticateUser, updatePostDescriptionController.updatePostDescription);//postId, description
