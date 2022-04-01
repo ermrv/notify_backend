@@ -2,14 +2,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const attachmentSchema=new Schema({
-    filePath:String,
-    mimeType:String
+const attachmentSchema = new Schema({
+    filePath: String,
+    mimeType: String,
+    size: String
 })
 
 const postContentSchema = new Schema({
-    description:{
-        type:String,
+    description: {
+        type: String,
     },
     postingChannel: {
         type: Schema.Types.ObjectId,
@@ -20,7 +21,7 @@ const postContentSchema = new Schema({
         ref: "User"
     },
     attachments: [{
-        type:attachmentSchema,
+        type: attachmentSchema,
     }]
 }, { timestamps: true });
 

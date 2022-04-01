@@ -5,19 +5,18 @@ exports.updatePostDescription = async (req, res) => {
     try {
         const userId = req.userData.userId;
         const { postId } = req.body;
-        console.log(req.body);
+
         const postData = await database.post.findOne({ _id: postId });
         if (postData.postingUser == userId) {
             const { description } = req.body;
             if (postData.shared == "true") {
-                postData.shareDetails.description = description;
+
+                postData.sharedDetails.sharedDescription = description;
                 await postData.save();
-                res.status(200).json({postData});
+                res.status(200).json({ description });
             } else {
-                const postContent = await database.postContent.findOne({ _id: postData.postContent });
-                postContent.description = description;
-                await postContent.save();
-                res.status(200).json({postContent});
+                const postContent = await database.postContent.updateOne({ _id: postData.postContent }, { description: description });
+                res.status(200).json({ description });
             }
 
 

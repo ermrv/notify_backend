@@ -63,7 +63,7 @@ const postAttachmentsStorage=multer.diskStorage({
         cb(null, 'public/posts/attachments');
     },
     filename: function (req, file, cb) {
-        cb(null, "attachment_" + new Date().toISOString() + file.originalname);
+        cb(null,new Date().toISOString() + file.originalname);
     }
 });
 module.exports.postAttachmentsUploader = multer({
