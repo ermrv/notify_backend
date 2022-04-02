@@ -29,9 +29,10 @@ var userSchema = new Schema({
     },
     deviceInfo: [{
         lat: String,
-        lan: String,
+        lon: String,
         mac: String,
         location: String,
+        fcmToken:String
     }],
     settings: {
 

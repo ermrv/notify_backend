@@ -139,7 +139,7 @@ exports.registerNewUser = async (req, res) => {
     const { name, gender} = req.body;
     userdata = await database.user.findOne({ mobile: mobile })
     if (!userdata.name) {
-      updatedUser = await database.user.findOneAndUpdate({ _id:req.userData.userId }, { name: name, gender: gender }, { 'new': true });
+      updatedUser = await database.user.findOneAndUpdate({ _id:req.userData.userId }, { name: name, gender: gender,}, { 'new': true });
       res.status(200).json({
         login: "true",
         registered: "true",

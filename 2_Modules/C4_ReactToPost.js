@@ -1,3 +1,4 @@
+const { sendNotification } = require('../3_SystemKernel/NotificationServices/NotificationServices');
 const database = require('./../3_SystemKernel/Database/index')
 
 
@@ -7,6 +8,7 @@ exports.reactToPost = async (req, res) => {
         const { postId, liked } = req.body;
         if (liked == "true") {
             const postData = await database.post.updateOne({ _id: postId }, { $addToSet: { likes: userId } });
+            sendNotification();
             return res.status(200).json({ "liked": "true" });
         }
         else {

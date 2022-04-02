@@ -14,6 +14,7 @@ router.post('/registerNewUser', authanticateUser, loginController.registerNewUse
 const profileEditController = require('../2_Modules/A2_EditProfileDetails')
 router.post('/getProfileDetails', authanticateUser, profileEditController.getProfileDetails);
 router.post('/updateProfileDetails', authanticateUser, profileEditController.updateProfileDetails); //name, bio, email , gender
+router.post('/updateDeviceInfo',authanticateUser,profileEditController.updateDeviceInfo);//lat, lon, mac
 
 //A3_update profile pic
 const profilePicController = require('../2_Modules/A3_UpdateProfilePic');
