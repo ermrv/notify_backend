@@ -8,7 +8,6 @@ exports.reactToPost = async (req, res) => {
         const { postId, liked } = req.body;
         if (liked == "true") {
             const postData = await database.post.updateOne({ _id: postId }, { $addToSet: { likes: userId } });
-            sendNotification();
             return res.status(200).json({ "liked": "true" });
         }
         else {
@@ -16,6 +15,7 @@ exports.reactToPost = async (req, res) => {
             return res.status(200).json({ "liked": "false" });
         }
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ error: error.message, });
     }
 }

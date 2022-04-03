@@ -1,3 +1,4 @@
+const notificationServices = require('../3_SystemKernel/NotificationServices/NotificationServices');
 const { channel } = require('./../3_SystemKernel/Database/index');
 const database = require('./../3_SystemKernel/Database/index')
 
@@ -21,11 +22,12 @@ exports.addPost = async (req, res) => {
                 //create post content
                 const postContent = await database.postContent.create({ description: description, attachments: attachments, postingChannel: channelId, postingUser: userId });
                 //create post
-                const postData = await database.post.create({ postContent: postContent._id, postingChannel: postContent.postingChannel, postingUser: postContent.postingUser });
+                const postData = await database.post.create({ postContent: postContent._id, postingChannel: postContent.postingChannel, postingUser: postContent.postingUser })
                 //add post  to channel
-                const channelData = await database.channel.updateOne({ _id: channelId }, { $addToSet: { posts: postData._id } })
+                const channelData = await database.channel.findOneAndUpdate({ _id: channelId }, { $addToSet: { posts: postData._id } }).lean()
                 //add post to channel subscribers
                 await database.user.updateMany({ _id: { $in: channelData.subscribers } }, { $addToSet: { newsFeedPosts: postData._id } });
+                notificationServices.sendPostNotification(postContent,postData,channelData);
                 res.status(200).json(postData);
             } else {
                 return res.status(500).json({ "error": "post is blank" });
@@ -53,11 +55,12 @@ exports.addTextOnlyPost = async (req, res) => {
                 //create post content
                 const postContent = await database.postContent.create({ description: description, attachments: attachments, postingChannel: channelId, postingUser: userId });
                 //create post
-                const postData = await database.post.create({ postContent: postContent._id, postingChannel: postContent.postingChannel, postingUser: postContent.postingUser });
+                const postData = await database.post.create({ postContent: postContent._id, postingChannel: postContent.postingChannel, postingUser: postContent.postingUser })
                 //add post  to channel
-                const channelData = await database.channel.updateOne({ _id: channelId }, { $addToSet: { posts: postData._id } })
+                const channelData = await database.channel.findOneAndUpdate({ _id: channelId }, { $addToSet: { posts: postData._id } }).lean()
                 //add post to channel subscribers
                 await database.user.updateMany({ _id: { $in: channelData.subscribers } }, { $addToSet: { newsFeedPosts: postData._id } });
+                notificationServices.sendPostNotification(postContent, postData,channelData);
                 res.status(200).json(postData);
             } else {
                 return res.status(500).json({ "error": "post is blank" });

@@ -17,7 +17,9 @@ exports.getProfileDetails = async (req, res) => {
             channel.postsCount = channel.posts.length;
             delete channel.posts;
         }
-        response.defaultChannel.postsCount = response.defaultChannel.posts.length;
+        if(response.defaultChannel){
+            response.defaultChannel.postsCount = response.defaultChannel.posts.length;
+        }
         res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({ error: error.message, });
@@ -66,7 +68,7 @@ exports.updateDeviceInfo = async (req, res) => {
             // if (location[0].country) {
             //     newData.country = location[0].country
             // }
-            userData = await database.user.updateOne({ _id: userId }, { deviceInfo: [{ lat: lat, lon: lon, fcmToken: fcmToken }] });
+            userData = await database.user.updateOne({ _id: userId }, { deviceInfo: { lat: lat, lon: lon, fcmToken: fcmToken } });
             res.status(200).json({ "updated": "true" });
         }
 

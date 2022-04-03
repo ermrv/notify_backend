@@ -27,13 +27,13 @@ var userSchema = new Schema({
         type:String,
         default:"/user/profilePics/default.png",
     },
-    deviceInfo: [{
+    deviceInfo: {
         lat: String,
         lon: String,
         mac: String,
         location: String,
         fcmToken:String
-    }],
+    },
     settings: {
 
 

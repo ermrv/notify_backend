@@ -41,7 +41,7 @@ var channelSchema = new Schema({
     }],
     notifications: [{
         type: Schema.Types.ObjectId,
-        ref: "Notification"
+        ref: "User"
     }]
 
 
