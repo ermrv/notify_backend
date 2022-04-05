@@ -13,7 +13,8 @@ admin.initializeApp({
 });
 
 exports.sendNotification = () => {
-  const token = "fCQcgegUSMeslWSzw3R6z2:APA91bEShlaqAdCdFCTUNijvSVhCoZN4Ky9E7M1DbkCUHSDrawRbJSigB1VXwXiyco8iuDnIzZN_umTS46f7CG6FAlfsnBnc32GrSYVAygQ73XeUejlYX6DUBj7oHxrWHEDQe7mgo0Sj"
+  console.log('sending ')
+  const token = "cjBYYazYSsyOaxNriy6OZv:APA91bEvvII_XVV7E4p1s8CjGt08joc-IQ1-FixoJK3NAgfyPqIS10l2uX18FLsMprXclds_u_7gGESZzWI2Vwr8b8dnLhKvLY1KwkmoPj8c0gZyDGsbtJ-HAcsy91STJPt1iOO4UW1q"
   var options = {
     priority: "high",
     timeToLive: 60 * 60 * 24
@@ -29,7 +30,6 @@ exports.sendNotification = () => {
 
 
 exports.sendPostNotification = async (postContent, postData, channelData,) => {
-  console.log(postData);
   try {
     const devices = await database.user.find({ _id: { $in: channelData.notifications } }).select('deviceInfo.fcmToken');
     const fcmTokens = [];
@@ -41,7 +41,7 @@ exports.sendPostNotification = async (postContent, postData, channelData,) => {
       //getting body of the notification
       let notificationBody;
       if (postData.shared === "true") {
-        notificationBody = postData.sharedDetails.sharedDescription +"\n"+postContent.attachments.length+" attachments";
+        notificationBody = postData.sharedDetails.sharedDescription
       } else {
         notificationBody = postContent.description+"\n"+postContent.attachments.length+" attachments";
       }

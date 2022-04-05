@@ -5,7 +5,7 @@ exports.getChannleDetails = async (req, res) => {
     try {
         const { channelId } = req.body;
         channelData = await database.channel.findOne({ _id: channelId })
-        .select('name owner channelCoverPicPath subscribers notifications description posts').lean();
+        .select('name owner channelCoverPicPath subscribers notifications description posts createdAt').lean();
         channelData.subscribersCount = channelData.subscribers.length;
         channelData.postsCount=channelData.posts.length;
             delete channelData.posts;

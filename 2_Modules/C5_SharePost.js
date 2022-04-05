@@ -1,4 +1,6 @@
 const database = require('./../3_SystemKernel/Database/index')
+const notificationServices = require('../3_SystemKernel/NotificationServices/NotificationServices');
+
 
 
 exports.sharePost = async (req, res) => {
@@ -20,9 +22,10 @@ exports.sharePost = async (req, res) => {
                     postContent:originalPostData.postContent._id,
                 });
                 //update channel
-                const channelData = await database.channel.updateOne({ _id: channelId }, { $addToSet: { posts: postData._id } })
+                const channelData = await database.channel.findOneAndUpdate({ _id: channelId }, { $addToSet: { posts: postData._id } }).lean()
                 //add post to channel subscribers
                 await database.user.updateMany({_id:{$in:channelData.subscribers}},{$addToSet:{newsFeedPosts:postData._id}});
+                notificationServices.sendPostNotification({},postData,channelData);
                 return res.status(200).json({ "shared": "true" });
             }
             else {
