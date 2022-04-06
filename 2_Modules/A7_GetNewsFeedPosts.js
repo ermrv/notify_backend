@@ -1,11 +1,26 @@
 const database = require('./../3_SystemKernel/Database/index')
+var mongoose = require('mongoose');
 
 
 exports.getNewsFeedPosts = async (req, res) => {
     try {
         const userId = req.userData.userId;
-        posts=await database.user.findOne({_id:userId}).select('newsFeedPosts').lean();
-        postsContent = await database.post.find({})
+        const {previousPostId}=req.body;
+        //get all posts ids
+        posts=await database.user.findOne({_id:userId}).select('newsFeedPosts');
+        //fileter post ids as per request
+        let postId;
+        if(previousPostId){
+            console.log(posts)
+            index=posts.newsFeedPosts.indexOf(previousPostId);
+            console.log(index);
+            postId=posts.newsFeedPosts.slice(index+1,index+21);
+
+        }else{
+            postId=posts.newsFeedPosts.reverse().slice(0,20);
+        }
+        //get the related posts
+        postsContent = await database.post.find({_id:{$in:postId}})
             .select('_id promoted shared postingChannel postingUser sharedDetails allowCommenting allowSharing postContent likes comments createdAt updatedAt')
             .populate({
                 path: "postingChannel",
