@@ -41,4 +41,8 @@ router.post('/getNewsfeedPosts',authanticateUser,getNewsFeedPostsController.getN
 //A8_ get subscribed channels
 const getSubscribedChannelsController=require('../2_Modules/A8_GetSubscribedChannels');
 router.post('/getSubscribedChannels',authanticateUser,getSubscribedChannelsController.getSubscribedChannels);
+
+//A9_ logout
+const logoutController=require('../2_Modules/A9_LogOut')
+router.post('/logout',authanticateUser,logoutController.logout);
 module.exports = router;
