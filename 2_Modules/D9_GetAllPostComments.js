@@ -10,11 +10,12 @@ exports.allPostComments = async function (req, res) {
     //filter the commentId as per the request
     let commentIds;
     if (previousCommentId) {
-      index = allComments.comments.reverse().indexOf(previousPostId);
-      commentIds = allComments.comments.reverse().slice(index + 1, index + 21);
+      index = allComments.comments.indexOf(previousCommentId);
+      const start=index-31<=0?0:index-31;
+      commentIds = allComments.comments.slice(start,previousCommentId);
 
     } else {
-      commentIds = allComments.comments.reverse().slice(0, 20);
+      commentIds = allComments.comments.slice(-30);
     }
 
     postComments = await database.comment.find({

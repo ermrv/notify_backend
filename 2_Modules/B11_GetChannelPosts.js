@@ -10,11 +10,12 @@ exports.getChannelPosts = async (req, res) => {
         //fileter post ids as per request
         let postIds;
         if(previousPostId){
-            index=allPosts.posts.reverse().indexOf(previousPostId);
-            postIds=allPosts.posts.reverse().slice(index+1,index+21);
+            index=posts.posts.indexOf(previousPostId);
+            const start=index-21<=0?0:index-21;
+            postId=posts.posts.slice(start,index);
 
         }else{
-            postIds=allPosts.posts.reverse().slice(0,20);
+            postIds=allPosts.posts.slice(-20);
         }
 
         //get the realted posts

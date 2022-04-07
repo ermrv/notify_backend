@@ -11,13 +11,12 @@ exports.getNewsFeedPosts = async (req, res) => {
         //fileter post ids as per request
         let postId;
         if(previousPostId){
-            console.log(posts)
             index=posts.newsFeedPosts.indexOf(previousPostId);
-            console.log(index);
-            postId=posts.newsFeedPosts.slice(index+1,index+21);
+            const start=index-21<=0?0:index-21;
+            postId=posts.newsFeedPosts.slice(start,index);
 
         }else{
-            postId=posts.newsFeedPosts.reverse().slice(0,20);
+            postId=posts.newsFeedPosts.slice(-20);
         }
         //get the related posts
         postsContent = await database.post.find({_id:{$in:postId}})
