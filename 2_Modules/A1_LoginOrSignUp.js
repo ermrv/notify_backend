@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const JWT_KEY = process.env.jwt_key
 
 
-// login 
+// login
 exports.sendOTP = async (req, res) => {
   try {
     const { mobile } = req.body

@@ -5,7 +5,6 @@ exports.updatePostPrivacy = async (req, res) => {
     try {
         const userId = req.userData.userId;
         const { postId } = req.body;
-       
         const postData = await database.post.findOne({ _id: postId });
         if (postData.postingUser == userId) {
             const { allowCommenting, allowSharing } = req.body;
@@ -13,7 +12,6 @@ exports.updatePostPrivacy = async (req, res) => {
                 postData.allowSharing=allowSharing;
                 await postData.save();
                 res.status(200).json({postData});
-           
 
 
         }

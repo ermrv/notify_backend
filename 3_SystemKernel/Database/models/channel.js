@@ -13,6 +13,10 @@ var channelSchema = new Schema({
         enum: ["private", "public"],
         default: "public"
     },
+    allowedSubscribers: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }],
     description: String,
     channelCoverPicPath: {
         type: String,

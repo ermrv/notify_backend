@@ -13,7 +13,6 @@ exports.reactToSubComment = async (req, res) => {
                     $addToSet: {
                         'subComments.$.likes':userId
                     }
-    
                 });
                 res.status(200).json({"likde":"true"});
             } else {
@@ -24,11 +23,9 @@ exports.reactToSubComment = async (req, res) => {
                     $pull: {
                         'subComments.$.likes':userId
                     }
-    
                 });
                 res.status(200).json({});
             }
-            
         } else {
             return res.status(500).json({ "error": "add required field" });
         }
